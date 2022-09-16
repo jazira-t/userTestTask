@@ -29,13 +29,13 @@ public class UserController {
         return userService.addUser(user, file);
     }
 
-//    @GetMapping("/get")
-//    private CheckStatusResponse getUsers(@RequestParam(required = false, defaultValue = "ONLINE") UserStatus status,
-//                                         @RequestParam(required = false) Date date){
+    @GetMapping("/get")
+    private CheckStatusResponse getUsers(@RequestParam(required = false, defaultValue = "ONLINE") UserStatus status,
+                                         @RequestParam(required = false) Date date){
 //// date -> long
 //        // dobavit ob'ekt UserTimestamp( Long id, User, Long timestamp) - Many to one, sozdat tablicu UserTimestamp
 //        // if (status == Enum && date == null) {} - v servise
-//
-//    }
+    return null;
+    }
 
 }
