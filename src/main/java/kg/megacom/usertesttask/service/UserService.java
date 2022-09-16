@@ -1,16 +1,19 @@
 package kg.megacom.usertesttask.service;
 
 import kg.megacom.usertesttask.models.User;
+import kg.megacom.usertesttask.models.UserTimestamp;
 import kg.megacom.usertesttask.models.dto.UserDto;
+import kg.megacom.usertesttask.models.enums.UserStatus;
 import org.springframework.web.multipart.MultipartFile;
+
+import java.util.List;
 
 public interface UserService {
 
-    User save(User user);
-    User getById(Long id);
-    User update(User user);
-
-    User addUser(User user, MultipartFile file);
-
+    UserDto save(UserDto userDto);
+    UserDto getById(Long id);
+    UserDto update(Long id, UserStatus status);
+    UserDto addUser(UserDto userDto, MultipartFile file);
+    List<UserDto> findAllUsers(Long userId);
 
 }

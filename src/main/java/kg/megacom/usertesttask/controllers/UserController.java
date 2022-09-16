@@ -2,6 +2,7 @@ package kg.megacom.usertesttask.controllers;
 
 import kg.megacom.usertesttask.models.CheckStatusResponse;
 import kg.megacom.usertesttask.models.User;
+import kg.megacom.usertesttask.models.dto.UserDto;
 import kg.megacom.usertesttask.models.enums.UserStatus;
 import kg.megacom.usertesttask.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,23 +20,28 @@ public class UserController {
     private UserService userService;
 
     @PostMapping("/add")
-    private User addUser(@RequestBody User user){
-        return  userService.save(user);
+    private UserDto addUser(@RequestBody UserDto userDto){
+        return  userService.save(userDto);
     }
 
     @PostMapping("/add/file")
-    private User addImageToUser(@RequestParam Long userId, @RequestPart MultipartFile file){
-        User user = userService.getById(userId);
-        return userService.addUser(user, file);
+    private UserDto addImageToUser(@RequestParam Long userId, @RequestPart MultipartFile file){
+        UserDto userDto = userService.getById(userId);
+        return userService.addUser(userDto, file);
+    }
+    @GetMapping("/get")
+    public UserDto getUser(@RequestParam Long userId){
+        return (UserDto) userService.findAllUsers(userId);
+    }
+    @PutMapping("/update")
+    public UserDto update(@RequestParam Long id, @RequestParam UserStatus status){
+        return userService.update(id, status);
     }
 
-    @GetMapping("/get")
+    @GetMapping("/get/users")
     private CheckStatusResponse getUsers(@RequestParam(required = false, defaultValue = "ONLINE") UserStatus status,
                                          @RequestParam(required = false) Date date){
-//// date -> long
-//        // dobavit ob'ekt UserTimestamp( Long id, User, Long timestamp) - Many to one, sozdat tablicu UserTimestamp
-//        // if (status == Enum && date == null) {} - v servise
-    return null;
+    return getUsers(status, date);
     }
 
 }
